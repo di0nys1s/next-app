@@ -12,12 +12,24 @@ interface Props {
   sortOrder: string;
 }
 
-const UserTable = ({ sortOrder }: Props) => {
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const UserTable = async ({ sortOrder }: Props) => {
   // const res = await fetch(process.env.API_URL + "/users");
   // const users: User[] = await res.json();
   // console.log({ users });
 
-  const sortedUsers = sort(users).asc(
+  const waitedUsers: User[] = await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(users);
+    }, 1000);
+  });
+
+  const sortedUsers = sort(waitedUsers).asc(
     sortOrder === "email" ? (user) => user.email : (user) => user.name
   );
 
