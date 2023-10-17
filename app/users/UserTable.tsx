@@ -1,39 +1,30 @@
-import React from "react";
-import users from "../../data/users.json";
-import Link from "next/link";
-import { sort } from "fast-sort";
+"use client";
 
-// interface User {
-//   id: number;
-//   name: string;
-// }
+import React from "react";
+import Link from "next/link";
+import Loading from "../loading";
+import { useGetEmployees } from "../hooks";
+import { sort } from "fast-sort";
+import { Employee } from "../types";
 
 interface Props {
   sortOrder: string;
 }
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
+const UserTable = ({ sortOrder }: Props) => {
+  const { data, isLoading, error } = useGetEmployees();
 
-const UserTable = async ({ sortOrder }: Props) => {
-  // const res = await fetch(process.env.API_URL + "/users");
-  // const users: User[] = await res.json();
-  // console.log({ users });
-
-  const waitedUsers: User[] = await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(users);
-    }, 1000);
-  });
-
-  const sortedUsers = sort(waitedUsers).asc(
-    sortOrder === "email" ? (user) => user.email : (user) => user.name
+  const sortedData = sort(data as Employee[]).asc(
+    sortOrder === "email"
+      ? (employee) => employee.email
+      : (employee) => employee.name
   );
 
-  return (
+  if (error) return <div>Error: {error.message}</div>;
+
+  return isLoading ? (
+    <Loading />
+  ) : (
     <table className="table table-bordered">
       <thead>
         <tr>
@@ -46,8 +37,8 @@ const UserTable = async ({ sortOrder }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {sortedUsers.map(({ id, name, email }) => (
-          <tr key={id}>
+        {sortedData.map(({ name, email }) => (
+          <tr key={email}>
             <td>{name}</td>
             <td>{email}</td>
           </tr>

@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import NavBar from "./NavBar";
+import TanstackProvider from "./providers/TanstackProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="winter">
       <body>
-        <NavBar />
-        <main className="px-4">{children}</main>
+        <TanstackProvider>
+          <NavBar />
+          <main className="px-4">{children}</main>
+        </TanstackProvider>
       </body>
     </html>
   );

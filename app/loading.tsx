@@ -1,7 +1,11 @@
 import React from "react";
 
 const Loading = () => {
-  return <span className="loading loading-spinner loading-md"></span>;
+  return (
+    <div className="flex justify-center items-center">
+      <span className="loading loading-ring loading-lg"></span>
+    </div>
+  );
 };
 
 export default Loading;
