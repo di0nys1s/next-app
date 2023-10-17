@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const schemaValidation = z.object({
   name: z.string().min(3).max(255),
+  email: z.string().min(1).email(),
 });
 
 const schema = new mongoose.Schema(
