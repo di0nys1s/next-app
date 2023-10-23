@@ -1,10 +1,6 @@
 import { Employee } from "@/app/types";
 import { useMutation, QueryClient } from "@tanstack/react-query";
 
-type Error = {
-  message: string;
-};
-
 const createEmployee = async (newEmployee: Employee): Promise<Employee> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -12,7 +8,7 @@ const createEmployee = async (newEmployee: Employee): Promise<Employee> => {
     throw new Error("API URL not defined");
   }
 
-  const response = await fetch(apiUrl, {
+  const response = await fetch(`${apiUrl}/employees`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,10 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Employee } from "../../types";
 
-type Error = {
-  message: string;
-};
-
 const getEmployees = async (): Promise<Employee[]> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -12,7 +8,7 @@ const getEmployees = async (): Promise<Employee[]> => {
     throw new Error("API URL not defined");
   }
 
-  const response = await fetch(apiUrl);
+  const response = await fetch(`${apiUrl}/employees`);
   if (!response.ok) {
     throw new Error("Failed to fetch employees");
   }

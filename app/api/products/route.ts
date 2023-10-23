@@ -1,37 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
-import schema from "./schema";
+import { schemaValidation, ProductModel } from "./schema";
+import { connectToMongoDB } from "@/app/libs/MongoConnect";
 
-export function GET(request: NextRequest) {
-  return NextResponse.json([
-    {
-      id: 1,
-      name: "Milk",
-      price: 2.5,
-    },
-    {
-      id: 2,
-      name: "Bread",
-      price: 3.5,
-    },
-  ]);
+export async function GET(request: NextRequest) {
+  await connectToMongoDB();
+  const products = await ProductModel.find().sort({ createdAt: -1 });
+
+  return NextResponse.json(products);
 }
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const validation = schema.safeParse(body);
+  const validation = schemaValidation.safeParse(body);
 
   if (!validation.success) {
     return NextResponse.json(validation.error.errors, { status: 400 });
   }
 
+  await connectToMongoDB();
+  await ProductModel.create(body);
+
   return NextResponse.json(
-    {
-      id: 1,
-      name: body.name,
-      price: body.price,
-    },
-    {
-      status: 201,
-    }
+    { message: "Product created successfully" },
+    { status: 201 }
   );
 }
