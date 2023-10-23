@@ -20,8 +20,4 @@ body {
   h1 {
     @apply font-bold text-2xl mb-3;
   }
-
-  img {
-    @apply w-20 h-auto;
-  }
 }
