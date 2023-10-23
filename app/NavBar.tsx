@@ -19,6 +19,9 @@ const NavBar = () => {
         <li>
           <Link href="/admin">Admin</Link>
         </li>
+        <li>
+          <Link href="/api/auth/signin">Login</Link>
+        </li>
       </ul>
     </nav>
   );
