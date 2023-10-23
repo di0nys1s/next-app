@@ -9,7 +9,10 @@ export const schemaValidation = z.object({
 const schema = new mongoose.Schema(
   {
     name: String,
-    email: String,
+    email: {
+      type: String,
+      unique: true,
+    },
     phone: String,
   },
   {

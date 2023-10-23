@@ -37,8 +37,8 @@ const UserTable = ({ sortOrder }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {sortedData.map(({ name, email }) => (
-          <tr key={email}>
+        {sortedData.map(({ _id, name, email }) => (
+          <tr key={_id}>
             <td>{name}</td>
             <td>{email}</td>
           </tr>

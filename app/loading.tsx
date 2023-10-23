@@ -3,7 +3,7 @@ import React from "react";
 type LoadingSize = "sm" | "md" | "lg";
 
 interface Props {
-  size: LoadingSize;
+  size?: LoadingSize;
 }
 
 const Loading = ({ size = "lg" }: Props) => {

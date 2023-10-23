@@ -1,4 +1,5 @@
 export type Employee = {
+  _id: string;
   name: string;
   email: string;
 };
