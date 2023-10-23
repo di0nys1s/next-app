@@ -14,7 +14,14 @@ const NavBar = () => {
       case "loading":
         return <Loading size="md" />;
       case "authenticated":
-        return <li>{session.user?.name}</li>;
+        return (
+          <>
+            <li>{session.user?.name}</li>
+            <li>
+              <Link href="/api/auth/signout">Logout</Link>
+            </li>
+          </>
+        );
       case "unauthenticated":
         return (
           <li>
